@@ -119,3 +119,51 @@ def api_list_movies(page: int = Query(1),
             }
         )
     
+#Find a specific movie
+@app.get("/api/v1/movies/{movie_id}" , status_code = status.HTTP_200_OK)
+def api_movie_description(movie_id: int, service: MovieService = Depends(get_user_service)):
+    try:
+        movie = service.read_a_movie(movie_id)
+        ratings = service.calculate_ratings(id=movie.id)
+        genres = []
+        for genre in movie.genres:
+            genres.append(genre.name)
+        new_item = {
+            "id": movie.id,
+            "title": movie.title,
+            "release_year": movie.release_year,
+            "director": movie.director,
+            "genres": genres,
+            "cast": movie.cast,
+            "average_rating": round(ratings["average_rating"],2),
+            "ratings_count": ratings["ratings_count"]
+            }
+        return {
+            "status": "success",
+            "data": new_item
+        }
+    
+    except MovieNotFound:
+            return JSONResponse(
+            status_code = status.HTTP_404_NOT_FOUND,
+            content = {
+                "status": "failure",
+                "error": {
+                    "code": 404,
+                    "message": "Movie not found"
+                }
+            }
+        )
+    
+    except Exception as e:
+        return JSONResponse(
+            status_code = status.HTTP_500_INTERNAL_SERVER_ERROR,
+            content = {
+                "status": "failure",
+                "error": {
+                    "code": 500,
+                    "message": str(e)
+                }
+            }
+        )
+    
