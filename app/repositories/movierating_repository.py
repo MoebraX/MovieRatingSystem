@@ -1,4 +1,4 @@
-from repository_schema import *
+from .repository_schema import *
 
 class MovieRatingRepository(Repository[MovieRating]):
     def __init__(self, session: Session):

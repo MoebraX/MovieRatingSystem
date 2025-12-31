@@ -1,7 +1,7 @@
 from sqlalchemy import *
 from sqlalchemy.orm import relationship
 
-from app.db.base import Base
+from db.base import Base
 
 
 movie_genres = Table(

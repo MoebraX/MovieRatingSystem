@@ -1,0 +1,2 @@
+class NoRatings(Exception):
+    pass

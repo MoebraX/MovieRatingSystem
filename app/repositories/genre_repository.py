@@ -1,4 +1,4 @@
-from repository_schema import *
+from .repository_schema import *
 
 class GenreRepository(Repository[Genre]):
     def __init__(self, session: Session):
