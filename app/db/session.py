@@ -2,7 +2,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, Session
 
 
-engine = create_engine("postgresql://user:secret123@localhost:5434/mydb")
+engine = create_engine("postgresql://app_user:app_pass@db:5432/app_db")
 MySession = sessionmaker(bind = engine)
 
 def get_db():

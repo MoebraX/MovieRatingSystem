@@ -4,9 +4,9 @@ from sqlalchemy import *
 from sqlalchemy.orm import joinedload
 from datetime import *
 
-from db.session import *
-from models.models import *
-from exceptions.repository_exceptions import *
+from app.db.session import *
+from app.models.models import *
+from app.exceptions.repository_exceptions import *
 
 
 T = TypeVar("T")
