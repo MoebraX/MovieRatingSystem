@@ -42,3 +42,14 @@ class MovieService():
     def filter_movies(self, page: int, page_size: int, title: str, release_year: int, genre: str) -> dict:
         all_movies = self.movie_repository.filter(title = title, release_year = release_year, genre = genre)
         return self.paginate_movies(page = page, page_size = page_size, all_movies = all_movies)
+
+    def add_movie(self,title: str,director_id: int, release_year: int | None, cast: str | None,genres: list[int]) -> Movie:
+        movie = self.movie_repository.add(title = title, director_id = director_id, release_year = release_year, cast = cast)
+        movie.genres = [self.genre_repository.get(genre_id) for genre_id in genres]
+        self.movie_repository.session.commit()
+        return movie
+
+ 
+
+
+    

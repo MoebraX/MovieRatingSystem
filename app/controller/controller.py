@@ -5,6 +5,7 @@ from pydantic import BaseModel
 from db.session import *
 from services.services import *
 from exceptions.controller_exceptions import *
+from schemas import *
 
 app = FastAPI()
 
@@ -167,3 +168,41 @@ def api_movie_description(movie_id: int, service: MovieService = Depends(get_use
             }
         )
     
+#Add a new movie
+@app.post("/api/v1/movies" , status_code = status.HTTP_201_CREATED)
+def api_add_movie(movie_schema: MovieSchema, service: MovieService = Depends(get_user_service)):
+    try:
+        movie = service.add_movie(title = movie_schema.title,
+         director_id = movie_schema.director_id,
+          release_year = movie_schema.release_year,
+           cast = movie_schema.cast,
+            genres = movie_schema.genres)
+        genres = []
+        for genre in movie.genres:
+            genres.append(genre.name)
+        ratings = service.calculate_ratings(id=movie.id)
+        new_item = {
+            "id": movie.id,
+            "title": movie.title,
+            "release_year": movie.release_year,
+            "director": movie.director,
+            "genres": genres,
+            "cast": movie.cast,
+            "average_rating": round(ratings["average_rating"],2),
+            "ratings_count": ratings["ratings_count"]
+            }
+        return {
+            "status": "success",
+            "data": new_item
+        }
+    except Exception as e:
+        return JSONResponse(
+            status_code = status.HTTP_422_UNPROCESSABLE_CONTENT, 
+            content = {
+                "status": "failure",
+                "error": {
+                    "code": 422,
+                    "message": str(e)
+                }
+            }
+        )
