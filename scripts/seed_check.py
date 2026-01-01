@@ -2,7 +2,8 @@ from sqlalchemy import create_engine, text
 from sqlalchemy.orm import Session
 
 
-DATABASE_URL = "postgresql://user:secret123@localhost:5434/mydb" # fill this for your own db
+#DATABASE_URL = "postgresql://user:secret123@localhost:5434/mydb" # fill this for your own db
+DATABASE_URL = "postgresql://app_user:app_pass@db:5432/app_db"
 
 engine = create_engine(DATABASE_URL)
 

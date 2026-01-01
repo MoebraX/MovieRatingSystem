@@ -2,9 +2,9 @@ from fastapi import FastAPI , status, Depends, Query
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel
 
-from db.session import *
-from services.services import *
-from exceptions.controller_exceptions import *
+from app.db.session import *
+from app.services.services import *
+from app.exceptions.controller_exceptions import *
 
 app = FastAPI()
 
