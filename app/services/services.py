@@ -1,5 +1,5 @@
-from repositories import *
-from exceptions.service_exceptions import *
+from app.repositories import *
+from app.exceptions.service_exceptions import *
 
 class MovieService():
     def __init__(self, movie_repository: MovieRepository,

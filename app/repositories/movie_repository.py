@@ -2,7 +2,7 @@ from typing import Optional
 from sqlalchemy.orm import joinedload
 
 from .repository_schema import *
-from exceptions.repository_exceptions import *
+from app.exceptions.repository_exceptions import *
 
 
 class MovieRepository(Repository[Movie]):

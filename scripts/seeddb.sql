@@ -53,9 +53,9 @@ CREATE TABLE tmdb_credits_raw (
 );
 
 ------------------------------- 4. Load raw data -----------------------------
-\copy tmdb_movies_raw (budget,genres,homepage,id,keywords,original_language,original_title,overview,popularity,production_companies,production_countries,release_date,revenue,runtime,spoken_languages,status,tagline,title,vote_average,vote_count) FROM '/tmp/tmdb_5000_movies.csv' CSV HEADER;
+\copy tmdb_movies_raw (budget,genres,homepage,id,keywords,original_language,original_title,overview,popularity,production_companies,production_countries,release_date,revenue,runtime,spoken_languages,status,tagline,title,vote_average,vote_count) FROM 'data/tmdb_5000_movies.csv' CSV HEADER;
 
-\copy tmdb_credits_raw (movie_id,title,"cast",crew) FROM '/tmp/tmdb_5000_credits.csv' CSV HEADER;
+\copy tmdb_credits_raw (movie_id,title,"cast",crew) FROM '/data/tmdb_5000_credits.csv' CSV HEADER;
 
 ------------------------------- 5. Insert genres -----------------------------
 INSERT INTO genres(name, description)
