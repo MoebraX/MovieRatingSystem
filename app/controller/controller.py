@@ -5,6 +5,7 @@ from pydantic import BaseModel
 from app.db.session import *
 from app.services.services import *
 from app.exceptions.controller_exceptions import *
+from app.schemas.schemas import *
 
 app = FastAPI()
 

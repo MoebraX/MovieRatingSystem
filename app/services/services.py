@@ -45,7 +45,14 @@ class MovieService():
 
     def add_movie(self,title: str,director_id: int, release_year: int | None, cast: str | None,genres: list[int]) -> Movie:
         movie = self.movie_repository.add(title = title, director_id = director_id, release_year = release_year, cast = cast)
-        movie.genres = [self.genre_repository.get(genre_id) for genre_id in genres]
+        genre_entities = []
+        for genre_id in genres:
+            genre = self.genre_repository.get(genre_id)
+            if not genre:
+                raise ValueError(f"Genre with id {genre_id} not found")
+            genre_entities.append(genre)
+
+        movie.genres = genre_entities
         self.movie_repository.session.commit()
         return movie
 

@@ -5,7 +5,10 @@ class GenreRepository(Repository[Genre]):
         self.session = session
 
     def get(self, id: int) -> Genre:
-        pass
+        target_genre = self.session.query(Genre).filter(Genre.id == id).first()        
+        if target_genre == None :
+            raise GenreNotFound
+        return target_genre
 
     def get_all(self) -> List[Genre]:
         pass
